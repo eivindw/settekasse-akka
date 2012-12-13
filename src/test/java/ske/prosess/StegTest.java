@@ -25,7 +25,7 @@ public class StegTest {
 
    @After
    public void sleep() throws InterruptedException {
-      Thread.sleep(1000); // To ensure actors finish
+      Thread.sleep(1000);
    }
 
    @Test
