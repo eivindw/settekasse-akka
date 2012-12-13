@@ -29,22 +29,22 @@ public class StegTest {
    }
 
    @Test
-   public void enkeltStegMedAkka() {
+   public void enkeltsteg() {
       prosess.tell(new ProsessInfo(OrdLengde.class, "hei"));
    }
 
    @Test
-   public void skalFunkeMedAkka() {
+   public void enkelProsess() {
       prosess.tell(new ProsessInfo(SetningOrdLengder.class, "Hei alle sammen! Denne setningen blir lang!!"));
    }
 
    @Test
-   public void skalSkriveUtFeilIJobbinfo() {
+   public void feilendeStegMedRekjoring() {
       prosess.tell(new ProsessInfo(FeilendeSteg.class, "hmm"));
    }
 
    @Test
-   public void ventePaaTregtSteg() {
-      prosess.tell(new ProsessInfo(TregtIdSteg.class, "19107639708"));
+   public void tregtAsynkrontSteg() {
+      prosess.tell(new ProsessInfo(TregtIdSteg.class, "19107612345"));
    }
 }
