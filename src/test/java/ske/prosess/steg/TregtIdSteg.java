@@ -30,7 +30,7 @@ public class TregtIdSteg extends Steg<String, Long> {
    }
 
    @Override
-   public Long resultat() {
+   protected Long resultat() {
       return id;
    }
 }

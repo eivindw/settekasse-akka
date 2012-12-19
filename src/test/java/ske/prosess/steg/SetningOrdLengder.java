@@ -30,7 +30,7 @@ public class SetningOrdLengder extends Steg<String, Collection> {
    }
 
    @Override
-   public Collection resultat() {
+   protected Collection resultat() {
       return coll;
    }
 }
