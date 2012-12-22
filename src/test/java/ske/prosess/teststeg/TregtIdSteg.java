@@ -1,4 +1,4 @@
-package ske.prosess.steg;
+package ske.prosess.teststeg;
 
 import akka.dispatch.Futures;
 import ske.prosess.Steg;

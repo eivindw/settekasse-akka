@@ -1,6 +1,6 @@
 package ske.prosess.melding;
 
-public final class Resultat extends Datamelding<Object> {
+public class Resultat<T> extends Datamelding<Object> {
 
    private final Object key;
 
@@ -11,6 +11,10 @@ public final class Resultat extends Datamelding<Object> {
 
    public Object getKey() {
       return key;
+   }
+
+   public void applyTo(T value) {
+      System.out.println("Applying " + toString() + " to " + value);
    }
 
    @Override

@@ -19,7 +19,7 @@ public class Server {
 
       ActorSystem system = ActorSystem.create();
 
-      ActorRef prosess = system.actorOf(new Props(Prosess.class), "Prosess");
+      ActorRef prosess = system.actorOf(new Props(Prosessmotor.class), "Prosessmotor");
 
       System.out.print("Commands: q, l!\n> ");
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

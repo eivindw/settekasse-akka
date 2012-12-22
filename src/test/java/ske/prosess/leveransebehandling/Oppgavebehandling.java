@@ -16,6 +16,7 @@ public class Oppgavebehandling extends Steg<Leveranse, String> {
       this.leveranse = leveranse;
       for(Oppgave oppgave : leveranse.getOppgaver()) {
          behandleDelsteg(IdentifisereOppgaveeier.class, oppgave);
+         behandleDelsteg(BestemOppgavestatus.class, oppgave);
          resultater++;
       }
       return null;

@@ -6,7 +6,7 @@ import akka.util.Duration;
 import ske.prosess.melding.ProsessInfo;
 import ske.prosess.melding.Resultat;
 
-public class Prosess extends UntypedActor {
+public class Prosessmotor extends UntypedActor {
 
    private static SupervisorStrategy strategy = new OneForOneStrategy(2, Duration.Inf(), new Function<Throwable, SupervisorStrategy.Directive>() {
       @Override

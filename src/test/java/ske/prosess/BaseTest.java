@@ -8,13 +8,13 @@ import org.junit.Before;
 
 public abstract class BaseTest {
 
-   protected ActorRef prosess;
+   protected ActorRef prosessmotor;
 
    @Before
    public void startAkkaOgLagProsess() {
       ActorSystem system = ActorSystem.create();
 
-      prosess = system.actorOf(new Props(Prosess.class), "Prosess");
+      prosessmotor = system.actorOf(new Props(Prosessmotor.class), "Prosessmotor");
    }
 
    @After
