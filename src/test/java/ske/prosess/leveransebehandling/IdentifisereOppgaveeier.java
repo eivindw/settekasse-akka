@@ -1,35 +1,28 @@
 package ske.prosess.leveransebehandling;
 
-import akka.actor.ActorRef;
-import akka.dispatch.Futures;
-import ske.prosess.Steg;
 import ske.prosess.domene.Avvik;
 import ske.prosess.domene.Identifisering;
 import ske.prosess.domene.Oppgave;
+import ske.prosess.steg.AsynkrontEndesteg;
 import ske.prosess.melding.Resultat;
 
 import java.util.Random;
-import java.util.concurrent.Callable;
 
-public class IdentifisereOppgaveeier extends Steg<Oppgave, Identifisering> {
+public class IdentifisereOppgaveeier extends AsynkrontEndesteg<Oppgave, Identifisering> {
 
    @Override
-   protected Identifisering behandle(final Oppgave oppgave) {
-      final ActorRef sender = getSender();
-      final String fnr = oppgave.getOppgaveeierFnr();
+   protected Identifisering behandleInput(final Oppgave input) throws Exception {
+      Thread.sleep(500);
+      return new Random().nextBoolean() ? new Identifisering(134) : new Identifisering(new Avvik("IDFEIL"));
+   }
 
-      Futures.future(new Callable<Void>() {
+   @Override
+   protected Resultat<Oppgave> lagResultat(final Oppgave input, final Identifisering resultat) {
+      return new Resultat<Oppgave>(input.getOppgaveeierFnr(), resultat) {
          @Override
-         public Void call() throws Exception {
-            Thread.sleep(500);
-            if(new Random().nextBoolean()) {
-               sender.tell(new Resultat(fnr, new Identifisering(134)));
-            } else {
-               sender.tell(new Resultat(fnr, new Identifisering(new Avvik("IDFEIL"))));
-            }
-            return null;
+         public void applyTo(Oppgave oppg) {
+            oppg.leggTilIdentifisering(resultat);
          }
-      }, getContext().dispatcher());
-      return null;
+      };
    }
 }

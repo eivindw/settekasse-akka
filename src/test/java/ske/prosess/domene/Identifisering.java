@@ -1,8 +1,8 @@
 package ske.prosess.domene;
 
-import scala.Either;
-import scala.Left;
-import scala.Right;
+import scala.util.Either;
+import scala.util.Left;
+import scala.util.Right;
 
 public class Identifisering {
 

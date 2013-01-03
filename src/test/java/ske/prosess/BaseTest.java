@@ -4,21 +4,28 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 
 public abstract class BaseTest {
 
-   protected ActorRef prosessmotor;
+   protected static ActorRef prosessmotor;
 
-   @Before
-   public void startAkkaOgLagProsess() {
-      ActorSystem system = ActorSystem.create();
+   protected static ActorSystem system;
 
+   @BeforeClass
+   public static void lagSystem() {
+      system = ActorSystem.create();
       prosessmotor = system.actorOf(new Props(Prosessmotor.class), "Prosessmotor");
+   }
+
+   @AfterClass
+   public static void stengSystem() {
+      system.shutdown();
    }
 
    @After
    public void sleep() throws InterruptedException {
-      Thread.sleep(1000);
+      Thread.sleep(2000);
    }
 }

@@ -1,22 +1,24 @@
 package ske.prosess.teststeg;
 
-import ske.prosess.Steg;
+import scala.Option;
+import ske.prosess.steg.SynkrontEndesteg;
+import ske.prosess.melding.Resultat;
 
 import java.util.Random;
 
-public class FeilendeSteg extends Steg<String, String> {
+public class FeilendeSteg extends SynkrontEndesteg<String, String> {
 
    @Override
-   protected String behandle(String context) {
+   public Resultat<String> behandle(String context) {
       if(new Random().nextBoolean()) {
          throw new RuntimeException("Uups!");
       } else {
-         return "OK";
+         return new Resultat<>("", "OK");
       }
    }
 
    @Override
-   protected boolean kanRekjores() {
-      return true;
+   public void preRestart(Throwable reason, Option<Object> message) {
+      getSelf().forward(message.get(), getContext());
    }
 }
