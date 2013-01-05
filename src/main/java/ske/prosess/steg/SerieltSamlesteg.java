@@ -1,14 +1,13 @@
 package ske.prosess.steg;
 
 import akka.actor.ActorRef;
-import akka.actor.UntypedActor;
 import ske.prosess.melding.Input;
 import ske.prosess.melding.Resultat;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SerieltSamlesteg<T> extends UntypedActor implements Steg<T> {
+public class SerieltSamlesteg<T> extends AbstractSteg<T> {
 
    private List<ActorRef> stegliste = new ArrayList<>();
    private ActorRef behandler;
@@ -23,10 +22,9 @@ public class SerieltSamlesteg<T> extends UntypedActor implements Steg<T> {
    @Override
    public void onReceive(Object message) {
       if (message instanceof Input) {
-         Input<T> input = (Input<T>) message;
-         System.out.println(navn() + " BEHANDLER: " + input.getData());
+         input = ((Input<T>) message).getData();
+         System.out.println(navn() + " BEHANDLER: " + input);
          behandler = getSender();
-         this.input = input.getData();
          kjoerNesteSteg();
       } else if (message instanceof Resultat) {
          Resultat resultat = (Resultat) message;
@@ -52,9 +50,5 @@ public class SerieltSamlesteg<T> extends UntypedActor implements Steg<T> {
    protected void kjoerNesteSteg() {
       stegliste.get(stegpeker).tell(new Input<>(input), getSelf());
       stegpeker++;
-   }
-
-   protected String navn() {
-      return String.format("%s (%s)", this.getClass().getSimpleName(), getSelf().path().name());
    }
 }

@@ -17,7 +17,10 @@ public class ProsessmotorTest extends BaseTest {
          @Override
          public Stegdefinisjon<Leveranse> lagToppsteg() {
             return seriell(
-               endesteg(IdentifisereOppgavegiver.class),
+               parallell(
+                  endesteg(IdentifisereOppgavegiver.class),
+                  endesteg(IdentifisereOppgavegiver.class)
+               ),
                endesteg(BestemLeveransestatus.class)
             );
          }

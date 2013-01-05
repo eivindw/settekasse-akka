@@ -15,6 +15,10 @@ public class Endestegdefinisjon<T> extends Stegdefinisjon<T> {
 
    @Override
    public ActorRef tilActor(ActorRefFactory context) {
-      return context.actorOf(new Props(stegklasse), stegklasse.getSimpleName());
+      ActorRef ref = context.actorFor(stegklasse.getSimpleName());
+      if(ref.isTerminated()) {
+         ref = context.actorOf(new Props(stegklasse), stegklasse.getSimpleName());
+      }
+      return ref;
    }
 }

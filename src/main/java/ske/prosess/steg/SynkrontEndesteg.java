@@ -1,10 +1,9 @@
 package ske.prosess.steg;
 
-import akka.actor.UntypedActor;
 import ske.prosess.melding.Input;
 import ske.prosess.melding.Resultat;
 
-public abstract class SynkrontEndesteg<T, R> extends UntypedActor implements Steg<T> {
+public abstract class SynkrontEndesteg<T, R> extends AbstractSteg<T> {
 
    @Override
    public void onReceive(Object message) {

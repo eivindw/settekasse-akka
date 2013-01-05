@@ -1,20 +1,20 @@
 package ske.prosess.steg;
 
 import akka.actor.ActorRef;
-import akka.actor.UntypedActor;
 import akka.dispatch.Futures;
 import ske.prosess.melding.Input;
 import ske.prosess.melding.Resultat;
 
 import java.util.concurrent.Callable;
 
-public abstract class AsynkrontEndesteg<T, R> extends UntypedActor implements Steg<T> {
+public abstract class AsynkrontEndesteg<T, R> extends AbstractSteg<T> {
 
    @Override
    public void onReceive(Object message) {
       if(message instanceof Input) {
          final T input = ((Input<T>) message).getData();
          final ActorRef sender = getSender();
+         System.out.println(navn() + " BEHANDLER: " + input);
 
          Futures.future(new Callable<Void>() {
             @Override
