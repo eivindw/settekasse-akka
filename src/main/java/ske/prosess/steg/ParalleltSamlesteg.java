@@ -19,22 +19,18 @@ public class ParalleltSamlesteg<T> extends AbstractSteg<T> {
    }
 
    @Override
-   public void onReceive(Object message) {
-      if (message instanceof Input) {
-         input = ((Input<T>) message).getData();
-         System.out.println(navn() + " BEHANDLER: " + input);
-         behandler = getSender();
-         for(ActorRef steg : stegliste) {
-            steg.tell(message, getSelf());
-         }
-      } else if (message instanceof Resultat) {
-         Resultat resultat = (Resultat) message;
-         System.out.println(navn() + " RESULTAT: " + resultat);
-         if (delresultat(resultat)) {
-            behandler.tell(new Resultat(resultat.getKey(), input), getSelf());
-         }
-      } else {
-         unhandled(message);
+   protected void behandleInput(T input) {
+      this.input = input;
+      behandler = getSender();
+      for(ActorRef steg : stegliste) {
+         steg.tell(new Input<>(input), getSelf());
+      }
+   }
+
+   @Override
+   protected void behandleResultat(Resultat resultat) {
+      if (delresultat(resultat)) {
+         behandler.tell(new Resultat(resultat.getKey(), input), getSelf());
       }
    }
 

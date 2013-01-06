@@ -20,20 +20,16 @@ public class SerieltSamlesteg<T> extends AbstractSteg<T> {
    }
 
    @Override
-   public void onReceive(Object message) {
-      if (message instanceof Input) {
-         input = ((Input<T>) message).getData();
-         System.out.println(navn() + " BEHANDLER: " + input);
-         behandler = getSender();
-         kjoerNesteSteg();
-      } else if (message instanceof Resultat) {
-         Resultat resultat = (Resultat) message;
-         System.out.println(navn() + " RESULTAT: " + resultat);
-         if (delresultat(resultat)) {
-            behandler.tell(new Resultat(resultat.getKey(), input), getSelf());
-         }
-      } else {
-         unhandled(message);
+   protected void behandleInput(T input) {
+      this.input = input;
+      behandler = getSender();
+      kjoerNesteSteg();
+   }
+
+   @Override
+   protected void behandleResultat(Resultat resultat) {
+      if (delresultat(resultat)) {
+         behandler.tell(new Resultat(resultat.getKey(), input), getSelf());
       }
    }
 
