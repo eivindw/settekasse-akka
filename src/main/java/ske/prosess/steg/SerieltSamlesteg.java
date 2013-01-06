@@ -28,18 +28,11 @@ public class SerieltSamlesteg<T> extends AbstractSteg<T> {
 
    @Override
    protected void behandleResultat(Resultat resultat) {
-      if (delresultat(resultat)) {
-         behandler.tell(new Resultat(resultat.getKey(), input), getSelf());
-      }
-   }
-
-   protected boolean delresultat(Resultat resultat) {
       resultat.applyTo(input);
       if(++antallResultater == stegliste.size()) {
-         return true;
+         behandler.tell(new Resultat(resultat.getKey(), input), getSelf());
       } else {
          kjoerNesteSteg();
-         return false;
       }
    }
 

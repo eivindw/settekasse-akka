@@ -29,13 +29,9 @@ public class ParalleltSamlesteg<T> extends AbstractSteg<T> {
 
    @Override
    protected void behandleResultat(Resultat resultat) {
-      if (delresultat(resultat)) {
+      resultat.applyTo(input);
+      if (++antallResultater == stegliste.size()) {
          behandler.tell(new Resultat(resultat.getKey(), input), getSelf());
       }
-   }
-
-   protected boolean delresultat(Resultat resultat) {
-      resultat.applyTo(input);
-      return ++antallResultater == stegliste.size();
    }
 }
