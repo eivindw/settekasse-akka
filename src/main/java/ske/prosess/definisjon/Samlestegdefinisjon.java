@@ -9,6 +9,7 @@ import java.util.List;
 public abstract class Samlestegdefinisjon<T> extends Stegdefinisjon<T> {
 
    private final Stegdefinisjon[] stegdefinisjoner;
+   protected int antallRoutere = 1;
 
    protected Samlestegdefinisjon(Stegdefinisjon... stegdefinisjoner) {
       this.stegdefinisjoner = stegdefinisjoner;
@@ -20,5 +21,10 @@ public abstract class Samlestegdefinisjon<T> extends Stegdefinisjon<T> {
          understeg.add(stegdefinisjon.tilActor(context));
       }
       return understeg;
+   }
+
+   public Samlestegdefinisjon<T> router(int antall) {
+      antallRoutere = antall;
+      return this;
    }
 }

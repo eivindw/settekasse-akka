@@ -17,7 +17,7 @@ public final class ProsessInfo {
       prosessdefinisjon = new Prosessdefinisjon() {
          @Override
          public Stegdefinisjon lagToppsteg() {
-            return endesteg(stegklasse);
+            return steg(stegklasse);
          }
       };
       this.input = input;

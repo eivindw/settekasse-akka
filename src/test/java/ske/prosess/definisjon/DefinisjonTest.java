@@ -23,16 +23,18 @@ public class DefinisjonTest {
          return
             seriell(
                parallell(
-                  endesteg(IdentifisereOppgavegiver.class),
-                  oppdeling(Oppgavebehandling.class).med(
-                     parallell(
-                        endesteg(IdentifisereOppgaveeier.class),
-                        endesteg(OppgaveFeltkontroll.class)
-                     ),
-                     endesteg(BestemOppgavestatus.class)
+                  steg(IdentifisereOppgavegiver.class),
+                  steg(Oppgavebehandling.class).med(
+                     seriell(
+                        parallell(
+                           steg(IdentifisereOppgaveeier.class),
+                           steg(OppgaveFeltkontroll.class)
+                        ),
+                        steg(BestemOppgavestatus.class)
+                     )
                   )
                ),
-               endesteg(BestemLeveransestatus.class)
+               steg(BestemLeveransestatus.class)
             );
       }
    }
