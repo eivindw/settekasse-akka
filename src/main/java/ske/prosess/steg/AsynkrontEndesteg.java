@@ -6,7 +6,7 @@ import ske.prosess.melding.Resultat;
 
 import java.util.concurrent.Callable;
 
-public abstract class AsynkrontEndesteg<T, R> extends AbstractSteg<T> {
+public abstract class AsynkrontEndesteg<T> extends AbstractSteg<T> {
 
    @Override
    protected void behandleInput(final T input) {
@@ -22,5 +22,5 @@ public abstract class AsynkrontEndesteg<T, R> extends AbstractSteg<T> {
       }, getContext().dispatcher());
    }
 
-   protected abstract Resultat<R> behandle(final T input) throws Exception;
+   protected abstract Resultat<T> behandle(final T input) throws Exception;
 }

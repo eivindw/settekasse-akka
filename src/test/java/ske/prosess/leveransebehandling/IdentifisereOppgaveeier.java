@@ -8,7 +8,7 @@ import ske.prosess.steg.AsynkrontEndesteg;
 
 import java.util.Random;
 
-public class IdentifisereOppgaveeier extends AsynkrontEndesteg<Oppgave, Oppgave> {
+public class IdentifisereOppgaveeier extends AsynkrontEndesteg<Oppgave> {
 
    @Override
    protected Resultat<Oppgave> behandle(Oppgave input) throws Exception {

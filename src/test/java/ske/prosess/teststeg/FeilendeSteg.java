@@ -6,7 +6,7 @@ import ske.prosess.melding.Resultat;
 
 import java.util.Random;
 
-public class FeilendeSteg extends SynkrontEndesteg<String, String> {
+public class FeilendeSteg extends SynkrontEndesteg<String> {
 
    @Override
    public Resultat<String> behandle(String context) {

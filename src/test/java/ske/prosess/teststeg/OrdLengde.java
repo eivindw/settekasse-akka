@@ -1,21 +1,14 @@
 package ske.prosess.teststeg;
 
-import ske.prosess.steg.SynkrontEndesteg;
 import ske.prosess.melding.Resultat;
+import ske.prosess.steg.SynkrontEndesteg;
 
-import java.util.Collection;
-
-public class OrdLengde extends SynkrontEndesteg<String, Collection> {
+public class OrdLengde extends SynkrontEndesteg<String> {
 
    @Override
-   public Resultat<Collection> behandle(String ord) {
+   public Resultat<String> behandle(String ord) {
       final int length = ord.length();
 
-      return new Resultat<Collection>(ord, length) {
-         @Override
-         public void applyTo(Collection coll) {
-            coll.add(getKey() + ": " + getData());
-         }
-      };
+      return new Resultat<>(ord, length);
    }
 }
