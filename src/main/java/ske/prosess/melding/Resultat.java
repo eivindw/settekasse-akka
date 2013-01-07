@@ -14,7 +14,7 @@ public class Resultat<T> extends Datamelding<Object> {
    }
 
    public void applyTo(T value) {
-      System.out.println("[DEFAULT] Applying " + toString() + " to " + value);
+      System.out.println("[DEFAULT] Applying " + key + " to " + value);
    }
 
    @Override
