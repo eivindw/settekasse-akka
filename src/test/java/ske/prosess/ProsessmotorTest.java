@@ -8,6 +8,7 @@ import ske.prosess.domene.Oppgave;
 import ske.prosess.leveransebehandling.BestemLeveransestatus;
 import ske.prosess.leveransebehandling.IdentifisereOppgavegiver;
 import ske.prosess.leveransebehandling.LeveranseFeltkontroll;
+import ske.prosess.leveransebehandling.Oppgavebehandling;
 import ske.prosess.melding.ProsessInfo;
 
 public class ProsessmotorTest extends BaseTest {
@@ -20,7 +21,8 @@ public class ProsessmotorTest extends BaseTest {
             return seriell(
                parallell(
                   endesteg(IdentifisereOppgavegiver.class),
-                  endesteg(LeveranseFeltkontroll.class)
+                  endesteg(LeveranseFeltkontroll.class),
+                  oppdeling(Oppgavebehandling.class)
                ),
                endesteg(BestemLeveransestatus.class)
             );
