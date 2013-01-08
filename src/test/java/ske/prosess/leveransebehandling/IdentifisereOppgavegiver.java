@@ -10,10 +10,12 @@ import java.util.Random;
 
 public class IdentifisereOppgavegiver extends AsynkrontEndesteg<Leveranse> {
 
+   private static final Random RANDOM = new Random();
+
    @Override
    protected Resultat<Leveranse> behandle(Leveranse input) throws Exception {
       Thread.sleep(500);
-      final Identifisering identifisering = new Random().nextBoolean() ? new Identifisering(42) : new Identifisering(new Avvik("IDFEIL"));
+      final Identifisering identifisering = RANDOM.nextBoolean() ? new Identifisering(RANDOM.nextInt(10)) : new Identifisering(new Avvik("IDFEIL"));
       return new Resultat<Leveranse>(identifisering) {
          @Override
          public void applyTo(Leveranse value) {

@@ -23,8 +23,8 @@ public class ProsessmotorTest extends BaseTest {
                      seriell(
                         parallell(
                            steg(IdentifisereOppgaveeier.class),
-                           steg(OppgaveFeltkontroll.class)).router(4),
-                        steg(BestemOppgavestatus.class)).router(4))),
+                           steg(OppgaveFeltkontroll.class)),
+                        steg(BestemOppgavestatus.class)))),
                steg(BestemLeveransestatus.class));
          }
       }, lagLeveranse()), null);

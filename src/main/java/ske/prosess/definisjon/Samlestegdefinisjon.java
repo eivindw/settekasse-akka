@@ -1,7 +1,7 @@
 package ske.prosess.definisjon;
 
-import akka.actor.ActorRef;
-import akka.actor.ActorRefFactory;
+import akka.actor.*;
+import ske.prosess.steg.SamlestegHub;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,6 @@ import java.util.List;
 public abstract class Samlestegdefinisjon<T> extends Stegdefinisjon<T> {
 
    private final Stegdefinisjon[] stegdefinisjoner;
-   protected int antallRoutere = 1;
 
    protected Samlestegdefinisjon(Stegdefinisjon... stegdefinisjoner) {
       this.stegdefinisjoner = stegdefinisjoner;
@@ -23,8 +22,22 @@ public abstract class Samlestegdefinisjon<T> extends Stegdefinisjon<T> {
       return understeg;
    }
 
-   public Samlestegdefinisjon<T> router(int antall) {
-      antallRoutere = antall;
-      return this;
+   @Override
+   public ActorRef tilActor(ActorRefFactory context) {
+      final List<ActorRef> stegliste = lagUndersteg(context);
+      final Props samlestegProps = new Props(new UntypedActorFactory() {
+         @Override
+         public Actor create() throws Exception {
+            return lagSteg(stegliste);
+         }
+      });
+      return context.actorOf(new Props(new UntypedActorFactory() {
+         @Override
+         public Actor create() throws Exception {
+            return new SamlestegHub<>(samlestegProps);
+         }
+      }));
    }
+
+   protected abstract Actor lagSteg(List<ActorRef> stegliste);
 }
