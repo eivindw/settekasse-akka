@@ -1,16 +1,19 @@
 package ske.prosess.definisjon;
 
 import akka.actor.*;
+import ske.prosess.steg.Samlesteg;
 import ske.prosess.steg.SamlestegHub;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Samlestegdefinisjon<T> extends Stegdefinisjon<T> {
+public class Samlestegdefinisjon<T> extends Stegdefinisjon<T> {
 
    private final Stegdefinisjon[] stegdefinisjoner;
+   private final Class<? extends Samlesteg> klasse;
 
-   protected Samlestegdefinisjon(Stegdefinisjon... stegdefinisjoner) {
+   protected Samlestegdefinisjon(Class<? extends Samlesteg> klasse, Stegdefinisjon... stegdefinisjoner) {
+      this.klasse = klasse;
       this.stegdefinisjoner = stegdefinisjoner;
    }
 
@@ -28,7 +31,7 @@ public abstract class Samlestegdefinisjon<T> extends Stegdefinisjon<T> {
       final Props samlestegProps = new Props(new UntypedActorFactory() {
          @Override
          public Actor create() throws Exception {
-            return lagSteg(stegliste);
+            return klasse.getConstructor(List.class).newInstance(stegliste);
          }
       });
       return context.actorOf(new Props(new UntypedActorFactory() {
@@ -38,6 +41,4 @@ public abstract class Samlestegdefinisjon<T> extends Stegdefinisjon<T> {
          }
       }));
    }
-
-   protected abstract Actor lagSteg(List<ActorRef> stegliste);
 }

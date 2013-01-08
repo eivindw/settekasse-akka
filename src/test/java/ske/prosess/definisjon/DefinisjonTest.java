@@ -4,7 +4,7 @@ import org.junit.Test;
 import ske.prosess.domene.Leveranse;
 import ske.prosess.leveransebehandling.*;
 
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertNotNull;
 
 public class DefinisjonTest {
 

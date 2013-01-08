@@ -1,5 +1,7 @@
 package ske.prosess.definisjon;
 
+import ske.prosess.steg.ParalleltSamlesteg;
+import ske.prosess.steg.SerieltSamlesteg;
 import ske.prosess.steg.Steg;
 
 public abstract class Prosessdefinisjon<T> {
@@ -11,12 +13,12 @@ public abstract class Prosessdefinisjon<T> {
    }
 
    @SafeVarargs
-   protected final <X> SeriellSamlestegdefinisjon<X> seriell(Stegdefinisjon<X>... stegdefinisjoner) {
-      return new SeriellSamlestegdefinisjon<>(stegdefinisjoner);
+   protected final <X> Samlestegdefinisjon<X> seriell(Stegdefinisjon<X>... stegdefinisjoner) {
+      return new Samlestegdefinisjon<>(SerieltSamlesteg.class, stegdefinisjoner);
    }
 
    @SafeVarargs
-   protected final <X> ParallellSamlestegdefinisjon<X> parallell(Stegdefinisjon<X>... stegdefinisjoner) {
-      return new ParallellSamlestegdefinisjon<>(stegdefinisjoner);
+   protected final <X> Samlestegdefinisjon<X> parallell(Stegdefinisjon<X>... stegdefinisjoner) {
+      return new Samlestegdefinisjon<>(ParalleltSamlesteg.class, stegdefinisjoner);
    }
 }
