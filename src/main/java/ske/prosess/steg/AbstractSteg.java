@@ -21,7 +21,7 @@ public abstract class AbstractSteg<T> extends UntypedActor implements Steg<T> {
    }
 
    protected String navn() {
-      return String.format("%s (%s)", this.getClass().getSimpleName(), getSelf().path().name());
+      return String.format("%s (%s)", this.getClass().getSimpleName(), getSelf().path());
    }
 
    protected void behandleResultat(Resultat resultat) {

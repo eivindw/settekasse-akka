@@ -14,7 +14,7 @@ public class IdentifisereOppgavegiver extends AsynkrontEndesteg<Leveranse> {
    protected Resultat<Leveranse> behandle(Leveranse input) throws Exception {
       Thread.sleep(500);
       final Identifisering identifisering = new Random().nextBoolean() ? new Identifisering(42) : new Identifisering(new Avvik("IDFEIL"));
-      return new Resultat<Leveranse>(input.getOppgavegiverOrgnr(), identifisering) {
+      return new Resultat<Leveranse>(identifisering) {
          @Override
          public void applyTo(Leveranse value) {
             value.leggTilIdentifisering(identifisering);

@@ -8,6 +8,11 @@ public class OppgaveFeltkontroll extends SynkrontEndesteg<Oppgave> {
 
    @Override
    protected Resultat<Oppgave> behandle(Oppgave input) {
-      return new Resultat<>("felt", "data");
+      return new Resultat<Oppgave>("oppgave feltkontroll") {
+         @Override
+         public void applyTo(Oppgave value) {
+            // Legg til evt. avvik
+         }
+      };
    }
 }

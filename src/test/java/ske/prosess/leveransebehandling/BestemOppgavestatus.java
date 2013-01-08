@@ -8,7 +8,11 @@ public class BestemOppgavestatus extends SynkrontEndesteg<Oppgave> {
 
    @Override
    public Resultat<Oppgave> behandle(Oppgave oppgave) {
-      oppgave.bestemStatus();
-      return new Resultat<>("", oppgave);
+      return new Resultat<Oppgave>("oppgavestatus") {
+         @Override
+         public void applyTo(Oppgave value) {
+            value.bestemStatus();
+         }
+      };
    }
 }

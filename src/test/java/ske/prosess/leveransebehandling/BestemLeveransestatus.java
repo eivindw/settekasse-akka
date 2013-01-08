@@ -8,7 +8,7 @@ public class BestemLeveransestatus extends SynkrontEndesteg<Leveranse> {
 
    @Override
    protected Resultat<Leveranse> behandle(Leveranse input) {
-      return new Resultat<Leveranse>("status", "apply") {
+      return new Resultat<Leveranse>("leveransestatus") {
          @Override
          public void applyTo(Leveranse value) {
             value.bestemStatus();

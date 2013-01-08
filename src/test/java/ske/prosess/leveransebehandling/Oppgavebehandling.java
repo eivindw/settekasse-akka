@@ -12,6 +12,7 @@ public class Oppgavebehandling extends AbstractSteg<Leveranse> {
    private ActorRef behandler;
    private final ActorRef understeg;
    private int antallResultater;
+   private Leveranse input;
 
    public Oppgavebehandling(ActorRef understeg) {
       this.understeg = understeg;
@@ -20,16 +21,24 @@ public class Oppgavebehandling extends AbstractSteg<Leveranse> {
    @Override
    protected void behandleInput(Leveranse input) {
       this.behandler = getSender();
+      this.input = input;
       for(Oppgave oppgave : input.getOppgaver()) {
          understeg.tell(new Input<>(oppgave), getSelf());
       }
       antallResultater = input.getOppgaver().size();
+      input.getOppgaver().clear();
    }
 
    @Override
    protected void behandleResultat(Resultat resultat) {
+      input.getOppgaver().add((Oppgave) resultat.getData());
       if(--antallResultater == 0) {
-         behandler.tell(new Resultat<>("oppgbeh", "hei"), getSelf());
+         behandler.tell(new Resultat<Leveranse>("oppgavebehandling") {
+            @Override
+            public void applyTo(Leveranse value) {
+               // Legg til oppsummering fra oppgavebehandling
+            }
+         }, getSelf());
       }
    }
 }

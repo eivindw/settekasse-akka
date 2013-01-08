@@ -14,7 +14,7 @@ public class IdentifisereOppgaveeier extends AsynkrontEndesteg<Oppgave> {
    protected Resultat<Oppgave> behandle(Oppgave input) throws Exception {
       Thread.sleep(500);
       final Identifisering identifisering = new Random().nextBoolean() ? new Identifisering(134) : new Identifisering(new Avvik("IDFEIL"));
-      return new Resultat<Oppgave>(input.getOppgaveeierFnr(), identifisering) {
+      return new Resultat<Oppgave>(identifisering) {
          @Override
          public void applyTo(Oppgave oppg) {
             oppg.leggTilIdentifisering(identifisering);

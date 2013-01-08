@@ -23,7 +23,7 @@ public class ProsessmotorTest extends BaseTest {
                      seriell(
                         parallell(
                            steg(IdentifisereOppgaveeier.class),
-                           steg(OppgaveFeltkontroll.class)),
+                           steg(OppgaveFeltkontroll.class)).router(4),
                         steg(BestemOppgavestatus.class)).router(4))),
                steg(BestemLeveransestatus.class));
          }
@@ -31,6 +31,6 @@ public class ProsessmotorTest extends BaseTest {
    }
 
    private Leveranse lagLeveranse() {
-      return new Leveranse("123456789", new Oppgave("123"));
+      return new Leveranse("123456789", new Oppgave("123"), new Oppgave("321"));
    }
 }

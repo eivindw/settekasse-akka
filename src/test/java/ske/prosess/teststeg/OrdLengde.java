@@ -9,6 +9,6 @@ public class OrdLengde extends SynkrontEndesteg<String> {
    public Resultat<String> behandle(String ord) {
       final int length = ord.length();
 
-      return new Resultat<>(ord, length);
+      return new Resultat<>(length);
    }
 }

@@ -13,7 +13,7 @@ public class FeilendeSteg extends SynkrontEndesteg<String> {
       if(new Random().nextBoolean()) {
          throw new RuntimeException("Uups!");
       } else {
-         return new Resultat<>("", "OK");
+         return new Resultat<>("OK");
       }
    }
 
