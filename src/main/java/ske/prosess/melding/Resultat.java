@@ -7,7 +7,7 @@ public class Resultat<T> extends Datamelding<Object> {
    }
 
    public void applyTo(T value) {
-      System.out.println("[DEFAULT] Applying " + getData() + " to " + value);
+      throw new RuntimeException("[DEFAULT] Applying " + getData() + " to " + value + " has no effect!");
    }
 
    public boolean isType(Class clazz) {

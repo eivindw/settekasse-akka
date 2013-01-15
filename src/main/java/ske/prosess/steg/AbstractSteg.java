@@ -10,10 +10,10 @@ public abstract class AbstractSteg<T> extends UntypedActor implements Steg<T> {
    public void onReceive(Object message) throws Exception {
       if(message instanceof Input) {
          T input = ((Input<T>) message).getData();
-         System.out.println(navn() + " INPUT: " + input);
+         //System.out.println(navn() + " INPUT: " + input);
          behandleInput(input);
       } else if(message instanceof Resultat) {
-         System.out.println(navn() + " RESULTAT: " + message);
+         //System.out.println(navn() + " RESULTAT: " + message);
          behandleResultat((Resultat) message);
       } else {
          unhandled(message);
@@ -25,7 +25,7 @@ public abstract class AbstractSteg<T> extends UntypedActor implements Steg<T> {
    }
 
    protected void behandleResultat(Resultat resultat) {
-      System.out.printf("[UBEHANDLET RESULTAT] %s: %s%n", navn(), resultat);
+      throw new RuntimeException(String.format("[UBEHANDLET RESULTAT] %s: %s", navn(), resultat));
    }
 
    protected abstract void behandleInput(T input);

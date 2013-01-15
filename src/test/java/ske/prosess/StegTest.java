@@ -19,7 +19,8 @@ public class StegTest extends BaseTest {
    }
 
    @Test
-   public void tregtAsynkrontSteg() {
+   public void tregtAsynkrontSteg() throws InterruptedException {
       prosessmotor.tell(new ProsessInfo(TregtIdSteg.class, "19107612345"), null);
+      Thread.sleep(550);
    }
 }

@@ -15,7 +15,7 @@ public class SamlestegHub<T> extends UntypedActor implements Steg<T> {
    @Override
    public void onReceive(Object message) throws Exception {
       final ActorRef samlesteg = getContext().actorOf(samlestegProps);
-      System.out.printf("## Hub %s created %s%n", getSelf().path(), samlesteg.path());
+      //System.out.printf("## Hub %s created %s%n", getSelf().path(), samlesteg.path());
       samlesteg.forward(message, getContext());
    }
 }

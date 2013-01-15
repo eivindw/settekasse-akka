@@ -20,6 +20,7 @@ public class Oppgavebehandling extends AbstractSteg<Leveranse> {
 
    @Override
    protected void behandleInput(Leveranse input) {
+      System.out.println(navn() + " startet!");
       this.behandler = getSender();
       this.input = input;
       for(Oppgave oppgave : input.getOppgaver()) {
@@ -37,8 +38,12 @@ public class Oppgavebehandling extends AbstractSteg<Leveranse> {
             @Override
             public void applyTo(Leveranse value) {
                // Legg til oppsummering fra oppgavebehandling
+               System.out.println(navn() + " ferdig!");
             }
          }, getSelf());
+      }
+      if(antallResultater % 50 == 0) {
+         System.out.println("Gjenstående oppgaver: " + antallResultater);
       }
    }
 }

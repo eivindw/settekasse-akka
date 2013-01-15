@@ -26,6 +26,6 @@ public abstract class BaseTest {
 
    @After
    public void sleep() throws InterruptedException {
-      Thread.sleep(2000);
+      Thread.sleep(50);
    }
 }

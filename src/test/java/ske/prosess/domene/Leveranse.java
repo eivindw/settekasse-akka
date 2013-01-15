@@ -58,7 +58,7 @@ public class Leveranse {
          out += " oppgavegiverId=" + oppgavegiverId;
       }
       out += " avviksliste=" + avviksliste;
-      out += " oppgaver=" + oppgaver;
+      out += " antall oppgaver=" + oppgaver.size();
       return out;
    }
 
