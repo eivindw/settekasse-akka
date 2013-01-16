@@ -24,18 +24,19 @@ public class ProsessmotorTest extends BaseTest {
       prosessmotor.tell(new ProsessInfo(new Prosessdefinisjon<Leveranse>() {
          @Override
          public Stegdefinisjon<Leveranse> lagToppsteg() {
-            return seriell(
-               parallell(
-                  steg(IdentifisereOppgavegiver.class),
-                  steg(LeveranseFeltkontroll.class),
-                  steg(Oppgavebehandling.class).med(
-                     seriell(
-                        parallell(
-                           steg(IdentifisereOppgaveeier.class),
-                           steg(OppgaveFeltkontroll.class)),
-                        steg(BestemOppgavestatus.class)))),
-               steg(BestemLeveransestatus.class),
-               new WaiterStegdefinisjon(waiter));
+            return
+               seriell(
+                  parallell(
+                     steg(IdentifisereOppgavegiver.class),
+                     steg(LeveranseFeltkontroll.class),
+                     steg(Oppgavebehandling.class).med(
+                        seriell(
+                           parallell(
+                              steg(IdentifisereOppgaveeier.class),
+                              steg(OppgaveFeltkontroll.class)),
+                           steg(BestemOppgavestatus.class)))),
+                  steg(BestemLeveransestatus.class),
+                  new WaiterStegdefinisjon(waiter));
          }
       }, lagLeveranse()), null);
 
