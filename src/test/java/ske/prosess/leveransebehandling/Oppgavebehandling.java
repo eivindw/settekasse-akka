@@ -1,13 +1,13 @@
 package ske.prosess.leveransebehandling;
 
 import akka.actor.ActorRef;
+import eivindw.messages.Input;
+import eivindw.messages.Result;
+import eivindw.steps.AbstractStep;
 import ske.prosess.domene.Leveranse;
 import ske.prosess.domene.Oppgave;
-import ske.prosess.melding.Input;
-import ske.prosess.melding.Resultat;
-import ske.prosess.steg.AbstractSteg;
 
-public class Oppgavebehandling extends AbstractSteg<Leveranse> {
+public class Oppgavebehandling extends AbstractStep<Leveranse> {
 
    private ActorRef behandler;
    private final ActorRef understeg;
@@ -19,7 +19,7 @@ public class Oppgavebehandling extends AbstractSteg<Leveranse> {
    }
 
    @Override
-   protected void behandleInput(Leveranse input) {
+   protected void handleInput(Leveranse input) {
       System.out.println(navn() + " startet!");
       this.behandler = getSender();
       this.input = input;
@@ -31,10 +31,10 @@ public class Oppgavebehandling extends AbstractSteg<Leveranse> {
    }
 
    @Override
-   protected void behandleResultat(Resultat resultat) {
+   protected void handleResult(Result resultat) {
       input.getOppgaver().add((Oppgave) resultat.getData());
       if(--antallResultater == 0) {
-         behandler.tell(new Resultat<Leveranse>("oppgavebehandling") {
+         behandler.tell(new Result<Leveranse>("oppgavebehandling") {
             @Override
             public void applyTo(Leveranse value) {
                // Legg til oppsummering fra oppgavebehandling

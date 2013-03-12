@@ -1,19 +1,19 @@
 package ske.prosess.teststeg;
 
+import eivindw.messages.Result;
+import eivindw.steps.SynchronousEndStep;
 import scala.Option;
-import ske.prosess.steg.SynkrontEndesteg;
-import ske.prosess.melding.Resultat;
 
 import java.util.Random;
 
-public class FeilendeSteg extends SynkrontEndesteg<String> {
+public class FeilendeSteg extends SynchronousEndStep<String> {
 
    @Override
-   public Resultat<String> behandle(String context) {
+   public Result<String> handle(String context) {
       if(new Random().nextBoolean()) {
          throw new RuntimeException("Uups!");
       } else {
-         return new Resultat<>("OK");
+         return new Result<>("OK");
       }
    }
 

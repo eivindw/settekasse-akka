@@ -1,15 +1,15 @@
 package ske.prosess.leveransebehandling;
 
+import eivindw.messages.Result;
+import eivindw.steps.SynchronousEndStep;
 import ske.prosess.domene.Leveranse;
-import ske.prosess.melding.Resultat;
-import ske.prosess.steg.SynkrontEndesteg;
 
-public class LeveranseFeltkontroll extends SynkrontEndesteg<Leveranse> {
+public class LeveranseFeltkontroll extends SynchronousEndStep<Leveranse> {
 
    @Override
-   protected Resultat<Leveranse> behandle(Leveranse input) {
+   protected Result<Leveranse> handle(Leveranse input) {
       System.out.println(navn() + " startet!");
-      return new Resultat<Leveranse>("leveranse feltkontroll") {
+      return new Result<Leveranse>("leveranse feltkontroll") {
          @Override
          public void applyTo(Leveranse value) {
             // Legg til evt avvik;

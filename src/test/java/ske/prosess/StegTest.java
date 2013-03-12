@@ -1,7 +1,7 @@
 package ske.prosess;
 
+import eivindw.messages.ProsessInfo;
 import org.junit.Test;
-import ske.prosess.melding.ProsessInfo;
 import ske.prosess.teststeg.FeilendeSteg;
 import ske.prosess.teststeg.OrdLengde;
 import ske.prosess.teststeg.TregtIdSteg;

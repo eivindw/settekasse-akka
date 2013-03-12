@@ -1,15 +1,15 @@
 package ske.prosess;
 
 import akka.actor.*;
+import eivindw.definition.ProcessDefinition;
+import eivindw.definition.StepDefinition;
+import eivindw.messages.ProsessInfo;
+import eivindw.messages.Result;
+import eivindw.steps.SynchronousEndStep;
 import org.junit.Test;
-import ske.prosess.definisjon.Prosessdefinisjon;
-import ske.prosess.definisjon.Stegdefinisjon;
 import ske.prosess.domene.Leveranse;
 import ske.prosess.domene.Oppgave;
 import ske.prosess.leveransebehandling.*;
-import ske.prosess.melding.ProsessInfo;
-import ske.prosess.melding.Resultat;
-import ske.prosess.steg.SynkrontEndesteg;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -21,9 +21,9 @@ public class ProsessmotorTest extends BaseTest {
    public void skalKjoereEnkelprosess() throws InterruptedException {
       final CountDownLatch waiter = new CountDownLatch(1);
 
-      prosessmotor.tell(new ProsessInfo(new Prosessdefinisjon<Leveranse>() {
+      prosessmotor.tell(new ProsessInfo(new ProcessDefinition<Leveranse>() {
          @Override
-         public Stegdefinisjon<Leveranse> lagToppsteg() {
+         public StepDefinition<Leveranse> createTopLevelStep() {
             return
                seriell(
                   parallell(
@@ -48,10 +48,10 @@ public class ProsessmotorTest extends BaseTest {
       for(int i = 0; i < ANTALL_OPPGAVER; i++) {
          oppgaver[i] = new Oppgave(String.valueOf(i));
       }
-      return new Leveranse("123456789", oppgaver);
+      return new Leveranse(oppgaver);
    }
 
-   private static class WaiterStegdefinisjon extends Stegdefinisjon<Leveranse> {
+   private static class WaiterStegdefinisjon extends StepDefinition<Leveranse> {
       private final CountDownLatch waiter;
 
       private WaiterStegdefinisjon(CountDownLatch waiter) {
@@ -59,14 +59,14 @@ public class ProsessmotorTest extends BaseTest {
       }
 
       @Override
-      public ActorRef tilActor(ActorRefFactory context) {
+      public ActorRef toActor(ActorRefFactory context) {
          return context.actorOf(new Props(new UntypedActorFactory() {
             @Override
             public Actor create() throws Exception {
-               return new SynkrontEndesteg<Leveranse>() {
+               return new SynchronousEndStep<Leveranse>() {
                   @Override
-                  protected Resultat<Leveranse> behandle(Leveranse input) {
-                     return new Resultat<Leveranse>("Done!") {
+                  protected Result<Leveranse> handle(Leveranse input) {
+                     return new Result<Leveranse>("Done!") {
                         @Override
                         public void applyTo(Leveranse value) {
                            System.out.println("Waiter " + getData());

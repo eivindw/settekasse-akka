@@ -1,13 +1,13 @@
 package ske.prosess.teststeg;
 
-import ske.prosess.melding.Resultat;
-import ske.prosess.steg.AsynkrontEndesteg;
+import eivindw.messages.Result;
+import eivindw.steps.AsynchronousEndStep;
 
-public class TregtIdSteg extends AsynkrontEndesteg<String> {
+public class TregtIdSteg extends AsynchronousEndStep<String> {
 
    @Override
-   protected Resultat<String> behandle(String input) throws Exception {
+   protected Result<String> handle(String input) throws Exception {
       Thread.sleep(500);
-      return new Resultat<>(42L);
+      return new Result<>(42L);
    }
 }

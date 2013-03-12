@@ -1,5 +1,7 @@
 package ske.prosess.definisjon;
 
+import eivindw.definition.ProcessDefinition;
+import eivindw.definition.StepDefinition;
 import org.junit.Test;
 import ske.prosess.domene.Leveranse;
 import ske.prosess.leveransebehandling.*;
@@ -10,16 +12,16 @@ public class DefinisjonTest {
 
    @Test
    public void skalKunneDefinereProsessMedSteg() {
-      Prosessdefinisjon def = new TestProsessDefinisjon();
+      ProcessDefinition def = new TestProsessDefinisjon();
 
-      Stegdefinisjon toppsteg = def.lagToppsteg();
+      StepDefinition toppsteg = def.createTopLevelStep();
 
       assertNotNull(toppsteg);
    }
 
-   private static class TestProsessDefinisjon extends Prosessdefinisjon<Leveranse> {
+   private static class TestProsessDefinisjon extends ProcessDefinition<Leveranse> {
       @Override
-      public Stegdefinisjon<Leveranse> lagToppsteg() {
+      public StepDefinition<Leveranse> createTopLevelStep() {
          return
             seriell(
                parallell(

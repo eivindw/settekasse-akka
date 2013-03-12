@@ -1,14 +1,14 @@
 package ske.prosess.leveransebehandling;
 
+import eivindw.messages.Result;
+import eivindw.steps.SynchronousEndStep;
 import ske.prosess.domene.Leveranse;
-import ske.prosess.steg.SynkrontEndesteg;
-import ske.prosess.melding.Resultat;
 
-public class BestemLeveransestatus extends SynkrontEndesteg<Leveranse> {
+public class BestemLeveransestatus extends SynchronousEndStep<Leveranse> {
 
    @Override
-   protected Resultat<Leveranse> behandle(Leveranse input) {
-      return new Resultat<Leveranse>("leveransestatus") {
+   protected Result<Leveranse> handle(Leveranse input) {
+      return new Result<Leveranse>("leveransestatus") {
          @Override
          public void applyTo(Leveranse value) {
             value.bestemStatus();

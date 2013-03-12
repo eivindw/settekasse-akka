@@ -1,14 +1,14 @@
 package ske.prosess.leveransebehandling;
 
+import eivindw.messages.Result;
+import eivindw.steps.SynchronousEndStep;
 import ske.prosess.domene.Oppgave;
-import ske.prosess.melding.Resultat;
-import ske.prosess.steg.SynkrontEndesteg;
 
-public class OppgaveFeltkontroll extends SynkrontEndesteg<Oppgave> {
+public class OppgaveFeltkontroll extends SynchronousEndStep<Oppgave> {
 
    @Override
-   protected Resultat<Oppgave> behandle(Oppgave input) {
-      return new Resultat<Oppgave>("oppgave feltkontroll") {
+   protected Result<Oppgave> handle(Oppgave input) {
+      return new Result<Oppgave>("oppgave feltkontroll") {
          @Override
          public void applyTo(Oppgave value) {
             // Legg til evt. avvik

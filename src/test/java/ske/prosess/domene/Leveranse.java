@@ -14,7 +14,6 @@ public class Leveranse {
    }
 
    private UUID id;
-   private String oppgavegiverOrgnr;
    private Long oppgavegiverId;
    private Collection<Oppgave> oppgaver = new ArrayList<>();
    private Collection<Avvik> avviksliste = new ArrayList<>();
@@ -24,14 +23,9 @@ public class Leveranse {
       return oppgaver;
    }
 
-   public Leveranse(String oppgavegiverOrgnr, Oppgave... oppgaver) {
+   public Leveranse(Oppgave... oppgaver) {
       id = UUID.randomUUID();
-      this.oppgavegiverOrgnr = oppgavegiverOrgnr;
       this.oppgaver.addAll(Arrays.asList(oppgaver));
-   }
-
-   public String getOppgavegiverOrgnr() {
-      return oppgavegiverOrgnr;
    }
 
    public void leggTilIdentifisering(Identifisering identifisering) {
@@ -60,14 +54,5 @@ public class Leveranse {
       out += " avviksliste=" + avviksliste;
       out += " antall oppgaver=" + oppgaver.size();
       return out;
-   }
-
-   public void leggTilOppgaveIdentifisering(String fnr, Identifisering identifisering) {
-      for(Oppgave oppgave : oppgaver) {
-         if(oppgave.getOppgaveeierFnr().equals(fnr)) {
-            oppgave.leggTilIdentifisering(identifisering);
-            return;
-         }
-      }
    }
 }

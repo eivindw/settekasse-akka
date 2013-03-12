@@ -1,14 +1,14 @@
 package ske.prosess.teststeg;
 
-import ske.prosess.melding.Resultat;
-import ske.prosess.steg.SynkrontEndesteg;
+import eivindw.messages.Result;
+import eivindw.steps.SynchronousEndStep;
 
-public class OrdLengde extends SynkrontEndesteg<String> {
+public class OrdLengde extends SynchronousEndStep<String> {
 
    @Override
-   public Resultat<String> behandle(String ord) {
+   public Result<String> handle(String ord) {
       final int length = ord.length();
 
-      return new Resultat<>(length);
+      return new Result<>(length);
    }
 }
